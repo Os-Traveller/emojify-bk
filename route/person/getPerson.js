@@ -9,7 +9,7 @@ router.get('/:key', async (req, res) => {
     const personsAllInfo = await personCollection.find({}).toArray();
     if (!personsAllInfo) return res.send(response({ okay: true, data: [] }));
     const personsInfo = personsAllInfo.map((person) => {
-      if (person.name.toLowerCase() === key.toLocaleLowerCase())
+      if (person.name.toLowerCase().includes(key.toLocaleLowerCase()))
         return {
           _id: person._id,
           name: person.name,
