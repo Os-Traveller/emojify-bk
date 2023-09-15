@@ -3,16 +3,18 @@ const { personCollection } = require('../../libs/collections');
 const response = require('../../utils/response');
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/:key', async (req, res) => {
   try {
+    const { key } = req.params;
     const personsAllInfo = await personCollection.find({}).toArray();
     if (!personsAllInfo) return res.send(response({ okay: true, data: [] }));
     const personsInfo = personsAllInfo.map((person) => {
-      return {
-        _id: person._id,
-        name: person.name,
-        image: person.image,
-      };
+      if (person.name.toLowerCase() === key.toLocaleLowerCase())
+        return {
+          _id: person._id,
+          name: person.name,
+          image: person.image,
+        };
     });
 
     res.send(response({ okay: true, data: personsInfo }));
