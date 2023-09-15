@@ -1,9 +1,9 @@
 const express = require('express');
-const { personCollection } = require('../libs/collections');
-const response = require('../utils/response');
+const { personCollection } = require('../../libs/collections');
+const response = require('../../utils/response');
 const router = express.Router();
 
-router.post('/add', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const { name, image, dob, dop, bio } = req.body;
     const insertResult = await personCollection.insertOne({
